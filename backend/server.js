@@ -1,1 +1,48 @@
-const express=require('express');const cors=require('cors');require('dotenv').config();const app=express();app.use(cors());app.use(express.json());let data=[{id:1,name:'Hill View Homestay',city:'Manali'},{id:2,name:'Lake Stay',city:'Nainital'}];app.get('/api/homestays',(req,res)=>res.json(data));app.get('/api/homestays/:id',(req,res)=>{const x=data.find(i=>i.id==req.params.id);if(!x)return res.status(404).json({message:'Not found'});res.json(x)});app.post('/api/homestays',(req,res)=>{const o={id:Date.now(),...req.body};data.push(o);res.status(201).json(o)});app.put('/api/homestays/:id',(req,res)=>{const i=data.findIndex(x=>x.id==req.params.id);if(i<0)return res.status(404).json({message:'Not found'});data[i]={...data[i],...req.body};res.json(data[i])});app.delete('/api/homestays/:id',(req,res)=>{data=data.filter(x=>x.id!=req.params.id);res.status(204).send()});app.get('/api/homestays/search',(req,res)=>{const q=(req.query.q||'').toLowerCase();res.json(data.filter(x=>x.name.toLowerCase().includes(q)))});app.get('/api/stats',(req,res)=>res.json({total:data.length}));app.use((e,req,res,n)=>res.status(500).json({message:e.message}));app.listen(5000)
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+
+const homestayRoutes = require("./routes/homestays");
+const statsRoutes = require("./routes/stats");
+const notFound = require("./middleware/notFound");
+const errorHandler = require("./middleware/errorHandler");
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// ─── Global Middleware ─────────────────────────────────────────────────────────
+app.use(cors());
+app.use(express.json());
+
+// ─── Routes ───────────────────────────────────────────────────────────────────
+app.use("/api/homestays", homestayRoutes);
+app.use("/api/stats", statsRoutes);
+
+// Health check
+app.get("/api/health", (req, res) => {
+  res.json({
+    success: true,
+    message: "StayNest API is running",
+    timestamp: new Date().toISOString(),
+    version: "1.0.0",
+  });
+});
+
+// ─── Error Handling (must be last) ────────────────────────────────────────────
+app.use(notFound);
+app.use(errorHandler);
+
+// ─── Start Server ─────────────────────────────────────────────────────────────
+app.listen(PORT, () => {
+  console.log(`✅  StayNest API running at http://localhost:${PORT}`);
+  console.log(`    Endpoints:`);
+  console.log(`      GET  /api/health`);
+  console.log(`      GET  /api/homestays`);
+  console.log(`      GET  /api/homestays/search?q=<term>`);
+  console.log(`      GET  /api/homestays/:id`);
+  console.log(`      POST /api/homestays`);
+  console.log(`      PUT  /api/homestays/:id`);
+  console.log(`      PATCH /api/homestays/:id`);
+  console.log(`      DELETE /api/homestays/:id`);
+  console.log(`      GET  /api/stats`);
+});

@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 export default function Card({ listing }) {
   const {
     name = "Cozy Hillside Cottage",
-    location = "Manali, Himachal Pradesh",
+    location,
+    city,
+    state,
     price = 2800,
     rating = 4.8,
     reviews = 42,
@@ -11,6 +13,9 @@ export default function Card({ listing }) {
     emoji = "🏔️",
     available = true,
   } = listing || {};
+
+  // Support both API format (city + state) and legacy format (location string)
+  const displayLocation = city && state ? `${city}, ${state}` : (location || "India");
 
   return (
     <article className="bg-white rounded-2xl overflow-hidden shadow-sm border border-forest-100 hover:shadow-md transition-shadow group">
@@ -44,7 +49,7 @@ export default function Card({ listing }) {
           </div>
         </div>
 
-        <p className="text-sm text-stone/60 mb-3">📍 {location}</p>
+        <p className="text-sm text-stone/60 mb-3">📍 {displayLocation}</p>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-1.5 mb-4">

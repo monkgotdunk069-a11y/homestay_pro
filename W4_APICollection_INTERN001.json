@@ -1,0 +1,348 @@
+{
+  "info": {
+    "_postman_id": "staynest-api-collection-intern001",
+    "name": "StayNest API — W4 Collection",
+    "description": "Complete API testing collection for the StayNest Homestay Management Platform backend. Covers all 9 endpoints with saved example responses.\n\nBase URL: http://localhost:5000\n\nIntern ID: INTERN001\nWeek: 4",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/health",
+          "host": ["{{base_url}}"],
+          "path": ["api", "health"]
+        },
+        "description": "Returns API health status and version info."
+      },
+      "response": [
+        {
+          "name": "200 OK — Health Check",
+          "originalRequest": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/health" }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"message\": \"StayNest API is running\",\n  \"timestamp\": \"2026-06-28T07:39:00.000Z\",\n  \"version\": \"1.0.0\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "GET All Homestays",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/homestays",
+          "host": ["{{base_url}}"],
+          "path": ["api", "homestays"]
+        },
+        "description": "Returns a list of all homestay listings. Supports optional ?city= query parameter for filtering."
+      },
+      "response": [
+        {
+          "name": "200 OK — All Homestays",
+          "originalRequest": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/homestays" }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"count\": 6,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Himalayan Cedar Retreat\",\n      \"city\": \"Manali\",\n      \"state\": \"Himachal Pradesh\",\n      \"price\": 3200,\n      \"rating\": 4.9,\n      \"reviews\": 87,\n      \"available\": true,\n      \"tags\": [\"Mountain View\", \"Bonfire\", \"Meals Included\"],\n      \"host\": \"Priya Sharma\",\n      \"maxGuests\": 4,\n      \"createdAt\": \"2024-01-10T08:00:00.000Z\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Backwaters Wooden Villa\",\n      \"city\": \"Alleppey\",\n      \"state\": \"Kerala\",\n      \"price\": 4500,\n      \"rating\": 4.8,\n      \"reviews\": 64,\n      \"available\": true,\n      \"tags\": [\"Waterfront\", \"Boat Ride\", \"AC\"],\n      \"host\": \"Anitha Nair\",\n      \"maxGuests\": 6,\n      \"createdAt\": \"2024-02-15T09:30:00.000Z\"\n    }\n  ]\n}"
+        },
+        {
+          "name": "200 OK — Filter by City",
+          "originalRequest": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/homestays?city=Manali" }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"count\": 1,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Himalayan Cedar Retreat\",\n      \"city\": \"Manali\",\n      \"state\": \"Himachal Pradesh\",\n      \"price\": 3200,\n      \"rating\": 4.9,\n      \"available\": true\n    }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "GET Single Homestay",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/homestays/1",
+          "host": ["{{base_url}}"],
+          "path": ["api", "homestays", "1"]
+        },
+        "description": "Returns a single homestay by its numeric ID."
+      },
+      "response": [
+        {
+          "name": "200 OK — Single Homestay",
+          "originalRequest": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/homestays/1" }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Himalayan Cedar Retreat\",\n    \"city\": \"Manali\",\n    \"state\": \"Himachal Pradesh\",\n    \"price\": 3200,\n    \"rating\": 4.9,\n    \"reviews\": 87,\n    \"available\": true,\n    \"tags\": [\"Mountain View\", \"Bonfire\", \"Meals Included\"],\n    \"description\": \"A cozy cedar-wood cottage nestled in the Himalayas with panoramic snow-peak views, home-cooked local meals, and nightly bonfires.\",\n    \"host\": \"Priya Sharma\",\n    \"maxGuests\": 4,\n    \"createdAt\": \"2024-01-10T08:00:00.000Z\"\n  }\n}"
+        },
+        {
+          "name": "404 Not Found",
+          "originalRequest": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/homestays/999" }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": false,\n  \"error\": {\n    \"message\": \"Homestay with id '999' not found\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "GET Search Homestays",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/homestays/search?q=manali",
+          "host": ["{{base_url}}"],
+          "path": ["api", "homestays", "search"],
+          "query": [{ "key": "q", "value": "manali" }]
+        },
+        "description": "Full-text search across name, city, state, and tags. Query param: ?q=<search term>"
+      },
+      "response": [
+        {
+          "name": "200 OK — Search Results",
+          "originalRequest": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/homestays/search?q=manali" }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"count\": 1,\n  \"query\": \"manali\",\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Himalayan Cedar Retreat\",\n      \"city\": \"Manali\",\n      \"state\": \"Himachal Pradesh\",\n      \"price\": 3200,\n      \"rating\": 4.9,\n      \"available\": true\n    }\n  ]\n}"
+        },
+        {
+          "name": "400 Bad Request — Missing q param",
+          "originalRequest": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/homestays/search" }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": false,\n  \"error\": {\n    \"message\": \"Query parameter 'q' is required\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "POST Create Homestay",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Shimla Pine Cottage\",\n  \"city\": \"Shimla\",\n  \"state\": \"Himachal Pradesh\",\n  \"price\": 3800,\n  \"rating\": 4.5,\n  \"reviews\": 12,\n  \"available\": true,\n  \"tags\": [\"Snow View\", \"Fireplace\", \"Breakfast\"],\n  \"description\": \"A charming pine cottage with snow-capped views and a warm fireplace.\",\n  \"host\": \"Kavita Rawat\",\n  \"maxGuests\": 3\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/homestays",
+          "host": ["{{base_url}}"],
+          "path": ["api", "homestays"]
+        },
+        "description": "Creates a new homestay listing. Required fields: name, city, state, price."
+      },
+      "response": [
+        {
+          "name": "201 Created",
+          "originalRequest": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/api/homestays" }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1719565200000,\n    \"name\": \"Shimla Pine Cottage\",\n    \"city\": \"Shimla\",\n    \"state\": \"Himachal Pradesh\",\n    \"price\": 3800,\n    \"rating\": 4.5,\n    \"reviews\": 12,\n    \"available\": true,\n    \"tags\": [\"Snow View\", \"Fireplace\", \"Breakfast\"],\n    \"description\": \"A charming pine cottage with snow-capped views and a warm fireplace.\",\n    \"host\": \"Kavita Rawat\",\n    \"maxGuests\": 3,\n    \"createdAt\": \"2026-06-28T07:40:00.000Z\"\n  }\n}"
+        },
+        {
+          "name": "400 Bad Request — Missing Fields",
+          "originalRequest": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/api/homestays" }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": false,\n  \"error\": {\n    \"message\": \"Fields 'name', 'city', 'state', and 'price' are required\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "PUT Full Update Homestay",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Himalayan Cedar Retreat — Deluxe\",\n  \"city\": \"Manali\",\n  \"state\": \"Himachal Pradesh\",\n  \"price\": 4000,\n  \"rating\": 4.9,\n  \"reviews\": 92,\n  \"available\": true,\n  \"tags\": [\"Mountain View\", \"Bonfire\", \"Meals Included\", \"Jacuzzi\"],\n  \"description\": \"Upgraded deluxe cedar retreat with a private jacuzzi added.\",\n  \"host\": \"Priya Sharma\",\n  \"maxGuests\": 5\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/homestays/1",
+          "host": ["{{base_url}}"],
+          "path": ["api", "homestays", "1"]
+        },
+        "description": "Full replacement of a homestay document. All required fields must be included."
+      },
+      "response": [
+        {
+          "name": "200 OK — Updated",
+          "originalRequest": {
+            "method": "PUT",
+            "url": { "raw": "{{base_url}}/api/homestays/1" }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Himalayan Cedar Retreat — Deluxe\",\n    \"city\": \"Manali\",\n    \"state\": \"Himachal Pradesh\",\n    \"price\": 4000,\n    \"rating\": 4.9,\n    \"reviews\": 92,\n    \"available\": true,\n    \"tags\": [\"Mountain View\", \"Bonfire\", \"Meals Included\", \"Jacuzzi\"],\n    \"host\": \"Priya Sharma\",\n    \"maxGuests\": 5\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "PATCH Partial Update Homestay",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"available\": false,\n  \"price\": 3500\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/homestays/2",
+          "host": ["{{base_url}}"],
+          "path": ["api", "homestays", "2"]
+        },
+        "description": "Partially updates a homestay. Only the provided fields are modified."
+      },
+      "response": [
+        {
+          "name": "200 OK — Partially Updated",
+          "originalRequest": {
+            "method": "PATCH",
+            "url": { "raw": "{{base_url}}/api/homestays/2" }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 2,\n    \"name\": \"Backwaters Wooden Villa\",\n    \"city\": \"Alleppey\",\n    \"state\": \"Kerala\",\n    \"price\": 3500,\n    \"rating\": 4.8,\n    \"reviews\": 64,\n    \"available\": false,\n    \"tags\": [\"Waterfront\", \"Boat Ride\", \"AC\"],\n    \"host\": \"Anitha Nair\",\n    \"maxGuests\": 6\n  }\n}"
+        },
+        {
+          "name": "404 Not Found",
+          "originalRequest": {
+            "method": "PATCH",
+            "url": { "raw": "{{base_url}}/api/homestays/999" }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": false,\n  \"error\": {\n    \"message\": \"Homestay with id '999' not found\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "DELETE Homestay",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/homestays/6",
+          "host": ["{{base_url}}"],
+          "path": ["api", "homestays", "6"]
+        },
+        "description": "Deletes a homestay by ID. Returns 204 No Content on success."
+      },
+      "response": [
+        {
+          "name": "204 No Content — Deleted",
+          "originalRequest": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/homestays/6" }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": "text",
+          "header": [],
+          "body": ""
+        },
+        {
+          "name": "404 Not Found",
+          "originalRequest": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/homestays/999" }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": false,\n  \"error\": {\n    \"message\": \"Homestay with id '999' not found\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "GET Stats",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/stats",
+          "host": ["{{base_url}}"],
+          "path": ["api", "stats"]
+        },
+        "description": "Returns aggregate statistics: total listings, available count, average price, average rating, and list of cities."
+      },
+      "response": [
+        {
+          "name": "200 OK — Stats",
+          "originalRequest": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/stats" }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"data\": {\n    \"total\": 6,\n    \"available\": 5,\n    \"unavailable\": 1,\n    \"avgPrice\": 4117,\n    \"avgRating\": 4.73,\n    \"cities\": [\"Manali\", \"Alleppey\", \"Jaisalmer\", \"Madikeri\", \"Bhuj\", \"Havelock Island\"]\n  }\n}"
+        }
+      ]
+    }
+  ]
+}
