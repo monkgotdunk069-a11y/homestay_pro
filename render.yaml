@@ -3,7 +3,7 @@ services:
     name: staynest-backend
     runtime: node
     buildCommand: cd backend && npm install
-    startCommand: node backend/server.js
+    startCommand: sh -c "cd backend && node server.js"
     envVars:
       - key: NODE_ENV
         value: production
