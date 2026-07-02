@@ -11,18 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ─── Global Middleware ─────────────────────────────────────────────────────────
-app.use(
-  cors({
-    origin: [
-      /\.vercel\.app$/,       // any Vercel preview / production URL
-      "http://localhost:5173", // Vite dev server
-      "http://localhost:3000",
-    ],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+app.use(cors()); // Allow all origins — public API, no auth/cookies needed
 app.use(express.json());
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
