@@ -1,20 +1,20 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 const homestayRoutes = require("./routes/homestays");
 const statsRoutes = require("./routes/stats");
-const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ─── Global Middleware ─────────────────────────────────────────────────────────
-app.use(cors()); // Allow all origins — public API, no auth/cookies needed
+app.use(cors());
 app.use(express.json());
 
-// ─── Routes ───────────────────────────────────────────────────────────────────
+// ─── API Routes (must come before static files) ───────────────────────────────
 app.use("/api/homestays", homestayRoutes);
 app.use("/api/stats", statsRoutes);
 
@@ -28,21 +28,21 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// ─── Error Handling (must be last) ────────────────────────────────────────────
-app.use(notFound);
+// ─── Serve React Frontend ──────────────────────────────────────────────────────
+const distPath = path.join(__dirname, "../dist");
+app.use(express.static(distPath));
+
+// React Router catch-all: serve index.html for any non-API route
+app.get("*", (req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
+});
+
+// ─── Error Handling ────────────────────────────────────────────────────────────
 app.use(errorHandler);
 
 // ─── Start Server ─────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`✅  StayNest API running at http://localhost:${PORT}`);
-  console.log(`    Endpoints:`);
-  console.log(`      GET  /api/health`);
-  console.log(`      GET  /api/homestays`);
-  console.log(`      GET  /api/homestays/search?q=<term>`);
-  console.log(`      GET  /api/homestays/:id`);
-  console.log(`      POST /api/homestays`);
-  console.log(`      PUT  /api/homestays/:id`);
-  console.log(`      PATCH /api/homestays/:id`);
-  console.log(`      DELETE /api/homestays/:id`);
-  console.log(`      GET  /api/stats`);
+  console.log(`✅  StayNest running at http://localhost:${PORT}`);
+  console.log(`    Frontend: http://localhost:${PORT}`);
+  console.log(`    API:      http://localhost:${PORT}/api/homestays`);
 });
