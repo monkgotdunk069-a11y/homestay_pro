@@ -3,7 +3,13 @@ import { Link } from "react-router-dom";
 export default function Card({ listing }) {
   const {
     name = "Cozy Hillside Cottage",
+<<<<<<< HEAD
+    location,
+    city,
+    state,
+=======
     location = "Manali, Himachal Pradesh",
+>>>>>>> eeb9e88102dce2f4bd3a375a6704b2c4c99cf346
     price = 2800,
     rating = 4.8,
     reviews = 42,
@@ -12,6 +18,12 @@ export default function Card({ listing }) {
     available = true,
   } = listing || {};
 
+<<<<<<< HEAD
+  // Support both API format (city + state) and legacy format (location string)
+  const displayLocation = city && state ? `${city}, ${state}` : (location || "India");
+
+=======
+>>>>>>> eeb9e88102dce2f4bd3a375a6704b2c4c99cf346
   return (
     <article className="bg-white rounded-2xl overflow-hidden shadow-sm border border-forest-100 hover:shadow-md transition-shadow group">
       {/* Image area */}
@@ -44,7 +56,11 @@ export default function Card({ listing }) {
           </div>
         </div>
 
+<<<<<<< HEAD
+        <p className="text-sm text-stone/60 mb-3">📍 {displayLocation}</p>
+=======
         <p className="text-sm text-stone/60 mb-3">📍 {location}</p>
+>>>>>>> eeb9e88102dce2f4bd3a375a6704b2c4c99cf346
 
         {/* Tags */}
         <div className="flex flex-wrap gap-1.5 mb-4">
