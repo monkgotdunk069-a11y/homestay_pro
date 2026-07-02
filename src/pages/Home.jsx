@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
+import API_URL from "../config/api";
 
 export default function Home() {
   const [listings, setListings] = useState([]);
@@ -14,7 +15,7 @@ export default function Home() {
 
   // Fetch all homestays from the backend on mount
   useEffect(() => {
-    fetch("/api/homestays")
+    fetch(`${API_URL}/homestays`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
@@ -29,7 +30,7 @@ export default function Home() {
       });
   }, []);
 
-  // Search handler — calls /api/homestays/search?q=
+  // Search handler — calls API endpoint
   const handleSearch = (e) => {
     e.preventDefault();
     if (!searchQuery.trim()) {
@@ -37,7 +38,7 @@ export default function Home() {
       return;
     }
     setSearching(true);
-    fetch(`/api/homestays/search?q=${encodeURIComponent(searchQuery)}`)
+    fetch(`${API_URL}/homestays/search?q=${encodeURIComponent(searchQuery)}`)
       .then((res) => res.json())
       .then((json) => {
         setSearchResults(json.data);

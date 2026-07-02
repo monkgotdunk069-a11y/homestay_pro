@@ -1,0 +1,7 @@
+{
+  "env": {
+    "VITE_API_URL": "https://homestaypro-production.up.railway.app/api"
+  },
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
+}

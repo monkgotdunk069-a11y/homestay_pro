@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import API_URL from "../config/api";
 
 const statusColors = {
   Confirmed: "bg-forest-100 text-forest-700",
@@ -45,9 +46,9 @@ export default function Dashboard() {
   const [statsLoading, setStatsLoading] = useState(true);
   const [statsError, setStatsError] = useState(null);
 
-  // Fetch live stats from /api/stats
+  // Fetch live stats from API
   useEffect(() => {
-    fetch("/api/stats")
+    fetch(`${API_URL}/stats`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
