@@ -10,7 +10,7 @@ export default function Card({ listing }) {
     rating = 4.8,
     reviews = 42,
     tags = ["Mountain View", "WiFi", "Kitchen"],
-    emoji = "🏔️",
+    image = "https://picsum.photos/500/300",
     available = true,
   } = listing || {};
 
@@ -19,8 +19,15 @@ export default function Card({ listing }) {
   return (
     <article className="bg-white rounded-2xl overflow-hidden shadow-sm border border-forest-100 hover:shadow-md transition-shadow group">
       {/* Image area */}
-      <div className="relative h-48 bg-gradient-to-br from-forest-200 to-forest-400 flex items-center justify-center">
-        <span className="text-7xl">{emoji}</span>
+      <div className="relative h-48 bg-gradient-to-br from-forest-200 to-forest-400 overflow-hidden">
+        <img 
+          src={image} 
+          alt={name}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          onError={(e) => {
+            e.target.src = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=300&fit=crop";
+          }}
+        />
         {!available && (
           <div className="absolute inset-0 bg-stone/40 flex items-center justify-center">
             <span className="bg-white text-stone font-medium text-sm px-3 py-1 rounded-full">

@@ -10,6 +10,7 @@ let homestays = [
     reviews: 87,
     available: true,
     tags: ["Mountain View", "Bonfire", "Meals Included"],
+    image: "https://picsum.photos/500/300?random=1",
     description:
       "A cozy cedar-wood cottage nestled in the Himalayas with panoramic snow-peak views, home-cooked local meals, and nightly bonfires.",
     host: "Priya Sharma",
@@ -26,6 +27,7 @@ let homestays = [
     reviews: 64,
     available: true,
     tags: ["Waterfront", "Boat Ride", "AC"],
+    image: "https://picsum.photos/500/300?random=2",
     description:
       "A traditional Kerala wooden villa on the backwaters. Wake up to the sound of rippling water and enjoy a private boat ride at sunset.",
     host: "Anitha Nair",
@@ -42,6 +44,7 @@ let homestays = [
     reviews: 52,
     available: false,
     tags: ["Heritage", "Desert Safari", "Pool"],
+    image: "https://picsum.photos/500/300?random=3",
     description:
       "An 18th-century Rajput haveli with hand-painted frescoes, a sandstone courtyard pool, and guided desert camel safaris.",
     host: "Vikram Singh",
@@ -58,6 +61,7 @@ let homestays = [
     reviews: 39,
     available: true,
     tags: ["Coffee Tours", "Nature Walks", "WiFi"],
+    image: "https://picsum.photos/500/300?random=4",
     description:
       "Stay amidst fragrant coffee plantations in the Scotland of India. Daily coffee-picking tours, guided jungle treks, and fresh estate-grown brews.",
     host: "Suresh Gowda",
@@ -74,6 +78,7 @@ let homestays = [
     reviews: 28,
     available: true,
     tags: ["Stargazing", "Cultural Show", "Breakfast"],
+    image: "https://picsum.photos/500/300?random=5",
     description:
       "Sleep under a blanket of stars in a luxury canvas tent on the white salt desert. Includes folk performances, camel rides, and a full Gujarati breakfast.",
     host: "Mehul Patel",
@@ -90,6 +95,7 @@ let homestays = [
     reviews: 103,
     available: true,
     tags: ["Beachfront", "Snorkelling", "Kitchen"],
+    image: "https://picsum.photos/500/300?random=6",
     description:
       "A private beach cottage steps from Radhanagar Beach. Includes snorkelling gear, a fully equipped kitchen, and direct beach access 24/7.",
     host: "Deepa Krishnan",
